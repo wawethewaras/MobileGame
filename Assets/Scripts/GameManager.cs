@@ -1,15 +1,22 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
 
-    private const int MaxTimeBeforeButtonColorChange = 3000;
-    private const int MinTimeBeforeButtonColorChange = 1000;
-    private const int DefaultDelayBeforeNewRound = 1000;
+    private const int DefaultDelayBeforeNewRound = 1000; //ms
+    private const int MinTimeBeforeButtonColorChange = 1000; //ms
+    private const int MaxTimeBeforeButtonColorChange = 3000; //ms
+
+    //Variables could be visible in the editor instead of constants to allow designers to change them.
+    //[SerializeField]
+    //private int DefaultDelayBeforeNewRound = 1000;
+    //[SerializeField]
+    //private int MinTimeBeforeButtonColorChange = 1000;
+    //[SerializeField]
+    //private int MaxTimeBeforeButtonColorChange = 3000;
 
     private bool canStartGame = true;
 
@@ -45,7 +52,6 @@ public class GameManager : MonoBehaviour {
     }
 
     private async void NewRound() {
-
         gameStateText.text = GameText.WaitText;
 
         bool buttonPressedTooEarly = true;
@@ -122,7 +128,7 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    //In this case code could be simplyfied since mystery method does not need to be async as it does not contain other async methods.
+    //In this case code could be simplified since mystery method does not need to be async as it does not contain other async methods.
     private Task<int> SimplifiedMysteryMethod(IEnumerable<Button> buttons) {
         var taskCompletionSource = new TaskCompletionSource<int>();
         foreach (var pair in System.Linq.Enumerable.Select(buttons, (button, index) => new { button, index }))
